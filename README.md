@@ -1,5 +1,7 @@
 # Simple flask apps
 [![Tests (pytest, flake8, mypy)](https://github.com/gurkin33/flask_simple_apps/actions/workflows/tests.yml/badge.svg)](https://github.com/gurkin33/flask_simple_apps/actions/workflows/tests.yml)
+[![Code Coverage](https://img.shields.io/codecov/c/github/gurkin33/flask_simple_apps?style=flat-square)](https://codecov.io/gh/gurkin33/flask_simple_apps)
+
 
 You can use one of app structure for your projects.
 
