@@ -1,7 +1,8 @@
 [tool.pytest.ini_options]
-addopts = "--cov-config=coverage.cfg --cov=. --cov-report term-missing"
+#addopts = "--cov-config=coverage.cfg --cov-report term-missing"
 testpaths = [
     "app1_simple_flask/tests",
+    "app2_flask_sqlalchemy/tests",
 ]
 
 [tool.mypy]
