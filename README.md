@@ -1,4 +1,5 @@
-# Simple flask apps
+# Simple flask apps ![Flask](https://img.shields.io/badge/flask-%23000.svg?logo=flask&logoColor=white)
+
 [![Tests (pytest, flake8, mypy)](https://github.com/gurkin33/flask_simple_apps/actions/workflows/tests.yml/badge.svg)](https://github.com/gurkin33/flask_simple_apps/actions/workflows/tests.yml)
 [![Code Coverage](https://img.shields.io/codecov/c/github/gurkin33/flask_simple_apps?style=flat-square)](https://codecov.io/gh/gurkin33/flask_simple_apps)
 
@@ -11,10 +12,12 @@ because I think this library add more flexibility to API.
 
 ## List of flask apps
 
-- [Simple flask app](https://github.com/gurkin33/flask_simple_apps/tree/main/app1_simple_flask). 
-As describe in the name it only represents simple API.
-- [Flask and Sqlalchemy](https://github.com/gurkin33/flask_simple_apps/tree/main/app2_flask_sqlalchemy).
-This API can work with databases. It has CRUD feature for users, also 
-you can find there validation.
+- [Simple flask app][]. As describe in the name it only represents simple API. [APP1 Read more][]
+- [Flask and Sqlalchemy][]. This API can work with databases. It has CRUD feature for users, also 
+you can find there validation. [APP2 Read more][]
 
+[Simple flask app]: https://github.com/gurkin33/flask_simple_apps/tree/main/app1_simple_flask
+[APP1 Read more]: https://github.com/gurkin33/flask_simple_apps/tree/main/app1_simple_flask
+[Flask and Sqlalchemy]: https://github.com/gurkin33/flask_simple_apps/tree/main/app2_flask_sqlalchemy
+[APP2 Read more]: https://github.com/gurkin33/flask_simple_apps/tree/main/app2_flask_sqlalchemy
 

@@ -2,7 +2,7 @@ from flask_restful import Api
 from src.resources.user import User
 
 
-class RouterGenerator:
+class RouteMaker:
 
     _routes = [
         (User, '/user', '/user/<int:user_id>')

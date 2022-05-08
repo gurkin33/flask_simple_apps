@@ -2,7 +2,7 @@ from os.path import exists
 from flask import Flask
 from flask_restful import Api
 from db import db
-from routes import RouterGenerator
+from routes import RouteMaker
 from config import API_PORT, API_HOST, API_DEBUG, API_DATABASE
 
 from respect_validation import Factory
@@ -18,7 +18,7 @@ db.init_app(app)
 
 api = Api(app)
 
-RouterGenerator.run(api=api)
+RouteMaker.run(api=api)
 
 if not exists('test.db'):
     with app.app_context():
