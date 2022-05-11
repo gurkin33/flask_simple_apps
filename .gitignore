@@ -1,6 +1,9 @@
 .pytest_cache
 .idea
+venv*
 .coverage
+.app*.coverage
 __pycache__
 test.db
 .tox
+app3_migrate_datatables/migrations

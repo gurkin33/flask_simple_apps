@@ -12,12 +12,18 @@ because I think this library add more flexibility to API.
 
 ## List of flask apps
 
-- [Simple flask app][]. As describe in the name it only represents simple API. [APP1 Read more][]
-- [Flask and Sqlalchemy][]. This API can work with databases. It has CRUD feature for users, also 
+- [App1. Simple flask][]. As describe in the name it only represents simple API. [APP1 Read more][]
+- [App2. Flask and Sqlalchemy][]. This API can work with databases. It has CRUD feature for users, also 
 you can find there validation. [APP2 Read more][]
+- [App3][]. Flask-Migrate and User table compatible with [datatables][].
+- App4. JWT.
+- App5. User Groups and Permissions.
+- App6. File uploading.
 
 [Simple flask app]: https://github.com/gurkin33/flask_simple_apps/tree/main/app1_simple_flask
 [APP1 Read more]: https://github.com/gurkin33/flask_simple_apps/tree/main/app1_simple_flask
 [Flask and Sqlalchemy]: https://github.com/gurkin33/flask_simple_apps/tree/main/app2_flask_sqlalchemy
 [APP2 Read more]: https://github.com/gurkin33/flask_simple_apps/tree/main/app2_flask_sqlalchemy
+[App3]: https://github.com/gurkin33/flask_simple_apps/tree/main/app3_migrate_datatables
+[datatables]: https://datatables.net/
 
