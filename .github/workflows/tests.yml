@@ -25,10 +25,22 @@ jobs:
           pip install -r requirements_dev.txt
           pip install tox-gh-actions
 
-      - name: Prepare databases via flask_migrate
+      - name: Prepare databases via flask_migrate (Linux)
+        if: startsWith(matrix.os,'ubuntu')
         run: |
           cd ./app3_migrate_datatables/
           rm -f __init__.py
+          flask db init
+          flask db migrate
+          flask db upgrade
+          touch __init__.py
+          cd ..
+
+      - name: Prepare databases via flask_migrate (Windows)
+        if: startsWith(matrix.os,'ubuntu')
+        run: |
+          cd ./app3_migrate_datatables/
+          del __init__.py
           flask db init
           flask db migrate
           flask db upgrade
