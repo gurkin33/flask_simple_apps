@@ -1,0 +1,6 @@
+flask
+flask-restful
+flask_migrate
+Flask-SQLAlchemy
+sqlalchemy
+respect-validation
