@@ -1,9 +1,9 @@
-[tool.pytest.ini_options]
+#[tool.pytest.ini_options]
 #addopts = "--cov-config=coverage.cfg --cov-report term-missing"
-testpaths = [
-    "app1_simple_flask/tests",
-    "app2_flask_sqlalchemy/tests",
-]
+#testpaths = [
+#    "app1_simple_flask/tests",
+#    "app2_flask_sqlalchemy/tests",
+#]
 
 [tool.mypy]
 mypy_path = "."
@@ -18,3 +18,4 @@ warn_return_any = true
 warn_unreachable = true
 warn_unused_configs = true
 no_implicit_reexport = true
+exclude = "(migrations|venv)"

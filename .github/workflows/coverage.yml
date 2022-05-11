@@ -16,10 +16,22 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements_dev.txt
+
+    - name: Prepare databases via flask_migrate
+      run: |
+        cd ./app3_migrate_datatables/
+        rm -f __init__.py
+        flask db init
+        flask db migrate
+        flask db upgrade
+        touch __init__.py
+        cd ..
+
     - name: Run tests and generate report
       run: |
         pytest app1_simple_flask --cov-config=coverage.cfg --cov app1_simple_flask && mv ./.coverage ./.app1.coverage
         pytest app2_flask_sqlalchemy --cov-config=coverage.cfg --cov app2_flask_sqlalchemy && mv ./.coverage ./.app2.coverage
+        pytest app3_migrate_datatables --cov-config=coverage.cfg --cov app3_migrate_datatables && mv ./.coverage ./.app3.coverage
         coverage combine ./.app1.coverage ./.app2.coverage
         coverage report -m
     - name: Upload coverage reports to Codecov with GitHub Action
