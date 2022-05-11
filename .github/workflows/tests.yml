@@ -37,7 +37,7 @@ jobs:
           cd ..
 
       - name: Prepare databases via flask_migrate (Windows)
-        if: startsWith(matrix.os,'ubuntu')
+        if: startsWith(matrix.os,'windows')
         run: |
           cd ./app3_migrate_datatables/
           del __init__.py
