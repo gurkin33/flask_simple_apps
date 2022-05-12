@@ -1,10 +1,10 @@
 from typing import Dict, Any
 
-from db import db
+from db import db, TimestampsModel
 from respect_validation import Validator as v
 
 
-class UserModel(db.Model):
+class UserModel(TimestampsModel, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -26,21 +26,19 @@ class UserModel(db.Model):
         return cls.fv().validate(user, rules)
 
     def get(self):
-        return {
-            "id": self.id,
-            "username": self.username,
-            "email": self.email,
-        }
+        item = {}
+        for c in self.__table__.columns.keys():
+            item[c] = self._output_serialization(getattr(self, c))
+        return item
+        # return {
+        #     "id": self.id,
+        #     "username": self.username,
+        #     "email": self.email,
+        #     "created_at": self.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+        #     "updated_at": self.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
+        # }
 
     def update(self, data: Dict[str, Any]) -> 'UserModel':
         self.username = data['username'] if 'username' in data.keys() else self.username
         self.email = data['email'] if 'email' in data.keys() else self.email
         return self
-
-    def save(self) -> None:
-        db.session.add(self)
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()

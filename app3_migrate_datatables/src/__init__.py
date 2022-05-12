@@ -1,4 +1,5 @@
 from flask_restful import Resource
+from datetime import datetime
 from sqlalchemy import or_
 from respect_validation import FormValidator, Validator as v
 
@@ -65,20 +66,27 @@ class ResourceCustom(Resource):
 
         total_count = table_query.count()
 
-        filter = []
+        search = []
         if req["search"]["value"]:
             for c in select_columns:
-                filter.append(getattr(model, c.name).like('%{}%'.format(req["search"]["value"])))
+                search.append(getattr(model, c.name).like('%{}%'.format(req["search"]["value"])))
 
-        if filter:
-            table_query = table_query.filter(or_(*filter))
+        if search:
+            table_query = table_query.filter(or_(*search))
 
         records_filtered = table_query.count()
+
+        table_query = table_query.limit(req["length"])
+        if req["start"]:
+            table_query = table_query.offset(req["start"])
 
         output = []
         for row in table_query.all():
             _row = {}
             for i, cell in enumerate(row):
+                if isinstance(row[i], datetime):
+                    _row[select_columns[i].name] = row[i].strftime("%Y-%m-%d %H:%M:%S")
+                    continue
                 _row[select_columns[i].name] = row[i]
             output.append(_row)
 

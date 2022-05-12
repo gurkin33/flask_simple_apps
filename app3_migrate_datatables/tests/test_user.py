@@ -23,7 +23,8 @@ def test_user_post():
             content_type='application/json',
             data=json.dumps(dict(username='test1', email='')))
         assert response.status_code == 200
-        assert '{"user": {"id": ' in response.data.decode('utf-8')
+        print(response.data)
+        assert '"id": 1, "username": "test1", "email": ""}}' in response.data.decode("utf-8")
 
 
 def test_user_post2():
@@ -42,7 +43,7 @@ def test_user_get():
     with app.test_client() as c:
         response = c.get('/user/1')
         assert response.status_code == 200
-        assert response.data == b'{"user": {"id": 1, "username": "test1", "email": ""}}\n'
+        assert '"id": 1, "username": "test1", "email": ""}}' in response.data.decode("utf-8")
 
 
 def test_user_put():
@@ -52,7 +53,8 @@ def test_user_put():
             content_type='application/json',
             data=json.dumps(dict(username='test2', email='test2@mail.com')))
         assert response.status_code == 200
-        assert response.data == b'{"user": {"id": 1, "username": "test2", "email": "test2@mail.com"}}\n'
+        print(response.data)
+        assert '"id": 1, "username": "test2", "email": "test2@mail.com"}}' in response.data.decode("utf-8")
 
 
 def test_user_put_404():
