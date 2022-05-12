@@ -1,5 +1,13 @@
 import json
+
+import pytest
+
 from app3_migrate_datatables.app import app
+from app3_migrate_datatables.db import ValidationModel
+
+
+def test__output_serialization():
+    assert ValidationModel._output_serialization(2.23) == "2.23"
 
 
 def test_user_get_404():
@@ -106,3 +114,131 @@ def test_user_delete_fail():
         response = c.delete('/user')
         assert response.status_code == 400
         assert response.data == b'{"error": ["User ID must be present!"]}\n'
+
+
+@pytest.mark.parametrize('user', [
+    {"username": 'test1', "email": 'test1@mail.com'},
+    {"username": 'test2', "email": 'test2@mail.com'},
+    {"username": 'test3', "email": 'test3@mail.com'},
+    {"username": 'test4', "email": 'test4@mail.com'},
+    {"username": 'user1', "email": 'user1@mail.com'},
+    {"username": 'user2', "email": 'user2@mail.com'},
+    {"username": 'user3', "email": 'user3@mail.com'},
+    {"username": 'user4', "email": 'user4@mail.com'},
+])
+def test_user_crowd_post(user):
+    with app.test_client() as c:
+        response = c.post(
+            '/user',
+            content_type='application/json',
+            data=json.dumps(user))
+        assert response.status_code == 200
+
+
+def test_datatables_post_fail():
+    datatables = {}
+
+    with app.test_client() as c:
+        response = c.post(
+            '/user/table',
+            content_type='application/json',
+            data=json.dumps(datatables))
+        assert response.status_code == 400
+
+
+def test_datatables_post_search():
+    datatables = {
+        "draw": 0,
+        "start": 1,
+        "length": 10,
+        "search": {
+            "regex": False,
+            "value": "user"
+        },
+        "order": [
+            {"column": 0, "dir": "asc"}
+        ],
+        "column": [
+            {
+                "data": "id",
+                "name": "",
+                "searchable": True,
+                "orderable": True,
+                "search": { "regex": False, "value": "" }
+            },
+            {
+                "data": "username",
+                "name": "",
+                "searchable": True,
+                "orderable": True,
+                "search": { "regex": False, "value": "" }
+            }
+        ]
+    }
+
+    with app.test_client() as c:
+        response = c.post(
+            '/user/table',
+            content_type='application/json',
+            data=json.dumps(datatables))
+        assert response.status_code == 200
+
+
+def test_datatables_post():
+    datatables = {
+        "draw": 0,
+        "start": 0,
+        "length": 10,
+        "search": {
+            "regex": False,
+            "value": ""
+        },
+        "order": [
+            {"column": 0, "dir": "asc"}
+        ],
+        "column": [
+            {
+                "data": "id",
+                "name": "",
+                "searchable": True,
+                "orderable": True,
+                "search": { "regex": False, "value": "" }
+            },
+            {
+                "data": "username",
+                "name": "",
+                "searchable": True,
+                "orderable": True,
+                "search": { "regex": False, "value": "" }
+            },
+            {
+                "data": "created_at",
+                "name": "",
+                "searchable": True,
+                "orderable": True,
+                "search": { "regex": False, "value": "" }
+            },
+            {
+                "data": "updated_at",
+                "name": "",
+                "searchable": True,
+                "orderable": True,
+                "search": { "regex": False, "value": "" }
+            }
+        ]
+    }
+
+    with app.test_client() as c:
+        response = c.post(
+            '/user/table',
+            content_type='application/json',
+            data=json.dumps(datatables))
+        assert response.status_code == 200
+        print(response.json)
+        # assert response.json == {}
+
+    data = response.json["data"]
+    for user in data:
+        with app.test_client() as c:
+            response = c.delete('/user/{}'.format(user["id"]))
+            assert response.status_code == 200
