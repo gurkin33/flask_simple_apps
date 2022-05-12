@@ -136,7 +136,11 @@ def test_user_crowd_post(user):
 
 
 def test_datatables_post_fail():
-    datatables = {}
+    datatables = {
+        "draw": 0,
+        "start": 1,
+        "length": 10
+    }
 
     with app.test_client() as c:
         response = c.post(
@@ -164,14 +168,14 @@ def test_datatables_post_search():
                 "name": "",
                 "searchable": True,
                 "orderable": True,
-                "search": { "regex": False, "value": "" }
+                "search": {"regex": False, "value": ""}
             },
             {
                 "data": "username",
                 "name": "",
                 "searchable": True,
                 "orderable": True,
-                "search": { "regex": False, "value": "" }
+                "search": {"regex": False, "value": ""}
             }
         ]
     }
@@ -202,28 +206,28 @@ def test_datatables_post():
                 "name": "",
                 "searchable": True,
                 "orderable": True,
-                "search": { "regex": False, "value": "" }
+                "search": {"regex": False, "value": ""}
             },
             {
                 "data": "username",
                 "name": "",
                 "searchable": True,
                 "orderable": True,
-                "search": { "regex": False, "value": "" }
+                "search": {"regex": False, "value": ""}
             },
             {
                 "data": "created_at",
                 "name": "",
                 "searchable": True,
                 "orderable": True,
-                "search": { "regex": False, "value": "" }
+                "search": {"regex": False, "value": ""}
             },
             {
                 "data": "updated_at",
                 "name": "",
                 "searchable": True,
                 "orderable": True,
-                "search": { "regex": False, "value": "" }
+                "search": {"regex": False, "value": ""}
             }
         ]
     }
@@ -237,7 +241,7 @@ def test_datatables_post():
         print(response.json)
         # assert response.json == {}
 
-    data = response.json["data"]
+    data = response.json["data"]  # type: ignore
     for user in data:
         with app.test_client() as c:
             response = c.delete('/user/{}'.format(user["id"]))
